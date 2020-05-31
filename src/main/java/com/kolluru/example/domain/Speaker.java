@@ -1,15 +1,21 @@
 package com.kolluru.example.domain;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 import java.util.UUID;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "speaker", schema ="conference")
+@Table(name = "speaker")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 public class Speaker {
     @Id
     @GeneratedValue(generator = "UUID")

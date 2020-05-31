@@ -1,11 +1,17 @@
 package com.kolluru.example.model;
 
+import lombok.*;
+
 import javax.enterprise.inject.New;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import java.util.UUID;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class SpeakerDto {
     @Null(groups = New.class, message ="The speaker id is automatically created by the system.")
     // @NotNull(groups = Existing.class)
