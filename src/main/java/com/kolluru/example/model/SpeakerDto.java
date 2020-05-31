@@ -1,21 +1,22 @@
 package com.kolluru.example.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.enterprise.inject.New;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
-import java.util.UUID;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
 public class SpeakerDto {
-    @Null(groups = New.class, message ="The speaker id is automatically created by the system.")
+
+    // @Null(groups = New.class, message ="The speaker id is automatically created by the system.")
     // @NotNull(groups = Existing.class)
-    private UUID speakerId;
+    private String speakerId;
     @NotBlank(message="The firstname of the speaker can't be blank.")
     private String firstName;
     @NotBlank(message="The lastname of the speaker can't be blank.")
@@ -26,4 +27,6 @@ public class SpeakerDto {
     private String companyName;
     @Email(message="Invalid email address.")
     private String speakerEmail;
+
 }
+

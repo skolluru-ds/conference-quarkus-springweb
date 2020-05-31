@@ -20,8 +20,8 @@ public class Speaker {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
-    private UUID speakerId;
+    @Column(name = "speaker_id", length = 64, columnDefinition = "varchar(64)", updatable = false, nullable = false)  // columnDefinition = UUID,
+    private String speakerId;
     @Column(name="firstname", length = 64)
     private String firstName;
     @Column(name="lastname", length = 64)
@@ -34,10 +34,10 @@ public class Speaker {
     private String speakerEmail;
 
     @CreationTimestamp
-    @Column(name = "createdat", updatable = false, nullable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     private Timestamp createdAt;
 
     @UpdateTimestamp
-    @Column(name = "lastmodifiedat", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private Timestamp lastModifiedAt;
 }
