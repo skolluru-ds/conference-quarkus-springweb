@@ -2,6 +2,7 @@ package com.kolluru.example.controller;
 
 import com.kolluru.example.domain.Speaker;
 import com.kolluru.example.exception.SpeakerNotFoundException;
+import com.kolluru.example.model.SpeakerDto;
 import com.kolluru.example.service.SpeakerService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpStatus;
@@ -24,10 +25,6 @@ public class SpeakerController {
 
     private final SpeakerService speakerService;
 
-//    @GetMapping("/{speakerId}")
-//    public ResponseEntity<SpeakerDto> getSpeakerById(@PathVariable("speakerId") final UUID speakerId){
-//            return new ResponseEntity<>(SpeakerDto.builder().build(), HttpStatus.OK);
-//    }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{speakerId}")
@@ -38,12 +35,19 @@ public class SpeakerController {
                 return Response.serverError().entity("SpeakerID cannot be blank").build();
             }
             System.out.println("***SpeakerController 2*** SpeakerID is " + speakerId);
+            SpeakerDto speakerDto = speakerService.getSpeakerById(speakerId);
+            if (speakerDto == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for UUID: " + speakerId).build();
+            }
+            return Response.ok(speakerDto, MediaType.APPLICATION_JSON).build();
+
+/*
             Speaker speaker = speakerService.getSpeakerById(speakerId);
             if (speaker == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for UUID: " + speakerId).build();
             }
-//        String json = //convert entity to json
             return Response.ok(speaker, MediaType.APPLICATION_JSON).build();
+*/
         }
         catch(SpeakerNotFoundException e){
             System.out.println("***SpeakerController 3***  " + "SpeakerNotFoundException Caught.... ");
@@ -101,15 +105,5 @@ public class SpeakerController {
             return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for UUID: " + speakerId).build();
         }
     }
-
-//    @PostMapping
-//    public ResponseEntity addSpeaker(@RequestBody final SpeakerDto speakerDto){
-//        return new ResponseEntity(speakerDto, HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/{speakerId}")
-//    public ResponseEntity updateSpeaker(@RequestBody final SpeakerDto speakerDto, @PathVariable("speakerId") final UUID speakerId){
-//        return new ResponseEntity(speakerDto, HttpStatus.NO_CONTENT);
-//    }
 
 }
